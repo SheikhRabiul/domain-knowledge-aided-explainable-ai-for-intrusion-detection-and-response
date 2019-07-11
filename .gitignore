@@ -1,0 +1,10 @@
+# Ignore .. folder
+database
+dataset
+data
+docs
+
+# Ignore all .. files
+*.csv
+*.zip
+*.npy
