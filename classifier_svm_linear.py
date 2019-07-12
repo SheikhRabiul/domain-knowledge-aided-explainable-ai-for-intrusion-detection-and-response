@@ -11,6 +11,7 @@ import time
 config_file = 'config.txt'
 config = pd.read_csv(config_file,sep=',', index_col =None)
 resample_data =config.iloc[0,1] #0 or 1
+full_feature_set = config.iloc[1,1] #0 or 1
 
 print("SVM:",resample_data)
 start = time.time()
@@ -23,16 +24,37 @@ classifier = LinearSVC(penalty='l2', loss='squared_hinge', dual=True, tol=0.0001
 #from sklearn import svm
 #classifier = svm.SVC(C=1.0, kernel='rbf', degree=3, gamma='auto_deprecated', coef0=0.0, shrinking=True, probability=False, tol=0.001, cache_size=200, class_weight=None, verbose=False, max_iter=-1, decision_function_shape='ovr', random_state=None)
 # import processed data
-X_train = np.load('data/data_fully_processed_X_train.npy')
-y_train = np.load('data/data_fully_processed_y_train.npy')
+f_X_train = 'data/data_fully_processed_X_train'
+f_y_train = 'data/data_fully_processed_y_train'
+f_X_test = 'data/data_fully_processed_X_test'
+f_y_test = 'data/data_fully_processed_y_test'
 
 if resample_data == 1:
-    X_train = np.load('data/data_fully_processed_X_train_resampled.npy')
-    y_train = np.load('data/data_fully_processed_y_train_resampled.npy')
+    f_X_train = f_X_train + "_resampled"
+    f_y_train = f_y_train + "_resampled"
+
+if full_feature_set == 1:
+    f_X_train = f_X_train + "_alt"
+    f_y_train = f_y_train + "_alt"
+    f_X_test = f_X_test + "_alt"
+    f_y_test = f_y_test + "_alt"
+    
+
+f_X_train = f_X_train + ".npy"
+f_y_train = f_y_train + ".npy"
+f_X_test = f_X_test + ".npy"
+f_y_test = f_y_test + ".npy"
 
 
-X_test = np.load('data/data_fully_processed_X_test.npy')
-y_test = np.load('data/data_fully_processed_y_test.npy')
+print(f_X_train)
+print(f_y_train)
+print(f_X_test)
+print(f_y_test)
+
+X_train = np.load(f_X_train)
+y_train = np.load(f_y_train)
+X_test = np.load(f_X_test)
+y_test = np.load(f_y_test)
 
 # Fitting classifier to the Training set    
 classifier.fit(X_train, y_train)

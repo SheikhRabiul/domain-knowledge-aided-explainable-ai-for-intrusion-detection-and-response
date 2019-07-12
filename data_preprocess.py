@@ -10,7 +10,8 @@ import time
 start = time.time()
 # import data
 dataset = pd.read_csv('data/combined_sampled.csv', sep=',')
-
+#maximum finite value in any cell of the dataset. Infinity value in any cell is replaced with with this value. 
+max_value = 655453030.0
 #keeping only the selected features
 feature_selected = ['index_old','ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Min','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Fwd Packets/s','Fwd PSH Flags','Flow Duration','Flow IAT Mean','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets','Class']
 dataset = dataset[feature_selected]
@@ -39,6 +40,18 @@ start = time.time()
 # Encoding the Dependent Variable
 labelencoder_y = LabelEncoder()
 y = labelencoder_y.fit_transform(y)
+
+
+X = np.array(X, dtype=float) # this is required for checking infinite and null below
+#X_bk = pd.DataFrame(data=X, columns =X_columns ) 
+# replace infinite with max_value, null with 0.0
+for i in range(X.shape[0]):
+    for j in range(X.shape[1]):
+        k = X[i,j]
+        if not np.isfinite(k):
+            X[i,j] = max_value
+        if np.isnan(k):
+            X[i,j] = 0.0
 
 # Feature Scaling (scaling all attributes/featues in the same scale)
 from sklearn.preprocessing import StandardScaler
