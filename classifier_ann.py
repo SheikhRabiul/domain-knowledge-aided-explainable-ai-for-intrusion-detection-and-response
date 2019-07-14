@@ -83,6 +83,9 @@ for i in range(len(y_test)):
     if y_pred_probab[i] > .5:
         y_pred[i] =1
         
+#dump y_pred for future use ( to calculate percent of attack detected in case of experiment 2 where we exclude one attack from training set)
+df_y_pred = pd.DataFrame(y_pred, columns=['y_pred'])
+df_y_pred.to_csv("data/y_pred.csv",encoding='utf-8')   
 
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
