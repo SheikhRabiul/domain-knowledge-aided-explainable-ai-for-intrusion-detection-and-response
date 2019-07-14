@@ -1,13 +1,18 @@
-process_data.py -> preprocess data by running following 4 files
-	data_extract.py -> read the dataset; store it in sqlite database.
-	data_transform.py -> clean data; sample data
-	data_load.py -> move cleaned and sampled data from raw tables to main table. Also write into data/data_preprocessed.csv.
-	data_conversion.py -> remove unimportant features; labelEncode; onHotEncode;Scale; resample minority class;
-		save the fully processed data as numpy array (binary: data/____.npy)
-    data_conversion_alt.py -> also make numerical version of original and resampled data. 
+########## data preprocessing ############################
 
-run_classifiers.py
-	classifier_lr.py -> Logistic Regression (LR)
+data_merger.py -> merge individual csv files in to a single file following same format (same column structure).
+data_sampler.py -> sample specified number of records using stratified sampling technique. 
+data_preprocess.py -> preprocess data using selected features, saves fully preprocessed data in binary format (as numpy array with format .npy)
+data_preprocess_alt.py -> preprocess data using all features.
+	#for the experiment that exclude one attack at a time from training set, use following preprocessing script, saves fully preprocessed data in binary format (as numpy array with format .npy)
+	data_preprocessing_ex2.py -> excludes one attack at a time from training set.
+	data_preprocessing_alt_ex2.py -> excludes one attack at a time from training set when all features are in use.
+
+
+######### classifier run ###############################	
+classifier_lr.py -> Logistic Regression (LR)  classifier
+    analysis_excluding_1_attack.py -> analyze the effect of excluding the records of one attack from training set.
+	
 	classifier_dt.py -> Decision Tree (DT)
 	classifier_rf.py -> Random Forest (RF)
 	classifier_et -> Extra Trees (ET)

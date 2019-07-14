@@ -26,7 +26,7 @@ df_7 = pd.read_csv("dataset/MachineLearningCSV/Tuesday-WorkingHours.pcap_ISCX.cs
 df_8 = pd.read_csv("dataset/MachineLearningCSV/Wednesday-workingHours.pcap_ISCX.csv", sep =",")
 
 df = pd.concat([df_1, df_2, df_3, df_4, df_5, df_6, df_7, df_8], axis=0)   # 2,830,743 rows
-
+#df = pd.concat([df_4, df_5], axis=0)
 #delete unnecessary dataframe to free some memory
 del df_1
 del df_2
@@ -40,18 +40,31 @@ del df_8
 # last column of the dataframe
 df_last_l= list(df[df.columns[-1]])
 
+df_2nd_last = []
+
+labels_d = {"Benign": 0}
+
 #lable data int to two class from multiclass.
 for i in range(len(df_last_l)):
     if df_last_l[i] == 'BENIGN':
         df_last_l[i] = 0
+        df_2nd_last.append(0)
     else:
+        if df_last_l[i] in labels_d:
+            df_2nd_last.append(labels_d[df_last_l[i]])
+        else:
+            labels_d[df_last_l[i]] = max(labels_d.values()) + 1
+            df_2nd_last.append(labels_d[df_last_l[i]])
+            
         df_last_l[i] = 1
+        
 
-# name the target column as Class        
+# name the target column as Class
+df['Class_all'] = df_2nd_last
 df['Class'] = df_last_l
 
 #drop the multi class clumn         
-df = df.drop(df.columns[-2], axis =1)
+df = df.drop(df.columns[-3], axis =1)
 
 #remove beginning and trailing spaces from column name
 df.columns = df.columns.str.strip()

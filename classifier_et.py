@@ -61,6 +61,11 @@ classifier.fit(X_train, y_train)
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
 
+#dymp y_pred for future use ( to calculate percent of attack detected in case of experiment 2 where we exclude one attack from training set)
+df_y_pred = pd.DataFrame(y_pred, columns=['y_pred'])
+df_y_pred.to_csv("data/y_pred.csv",encoding='utf-8')   # keeping a backup of preprocessed numerical data.
+
+
 # Performance metrics
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, roc_curve, auc, precision_recall_curve 
 from sklearn.metrics import precision_recall_fscore_support

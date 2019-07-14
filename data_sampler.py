@@ -20,7 +20,7 @@ columns = df.columns.to_list()
 X_columns = columns[0:-1]
 
 from sklearn.model_selection import train_test_split
-X_remaining, X_sampled, y_remaining, y_sampled = train_test_split( X, y, test_size=2000, random_state=42, stratify=y)
+X_remaining, X_sampled, y_remaining, y_sampled = train_test_split( X, y, test_size=200000, random_state=42, stratify=y)
 
 
 df_dump_part1 = pd.DataFrame(X_sampled, columns=X_columns)
