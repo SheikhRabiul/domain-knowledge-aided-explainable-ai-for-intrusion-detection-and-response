@@ -9,18 +9,19 @@ Purpose: sampling data.
 import pandas as pd
 
 #read the combined data files
-df = pd.read_csv("dataset/MachineLearningCSV/combined.csv", sep =",")
+df = pd.read_csv("dataset/MachineLearningCSV/combined.csv", sep =",", dtype='unicode')
 
 ########################## sampling data [stratified] ######################################
 X = df.iloc[:,:-1].values
 y = df.iloc[:,-1].values
 
-columns = df.columns.to_list()
+columns = list(df.columns.values)
 
 X_columns = columns[0:-1]
 
 from sklearn.model_selection import train_test_split
-X_remaining, X_sampled, y_remaining, y_sampled = train_test_split( X, y, test_size=200000, random_state=42, stratify=y)
+X_remaining, X_sampled, y_remaining, y_sampled = train_test_split( X, y, test_size=500000, random_state=42, stratify=y)
+
 
 
 df_dump_part1 = pd.DataFrame(X_sampled, columns=X_columns)

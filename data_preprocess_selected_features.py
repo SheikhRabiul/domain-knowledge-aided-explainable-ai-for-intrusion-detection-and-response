@@ -1,6 +1,6 @@
 # Author: Sheikh Rabiul Islam
 # Date: 07/13/2019; updated:  07/13/2019
-# Purpose: load preprocessed data, delete records from a particular attack from the training set only. 
+# Purpose: load preprocessed data, drop features which are not selected by feature selection algorithm. 
 #		save the fully processed data as numpy array (binary: data/____.npy)
 
 #import modules
@@ -9,21 +9,19 @@ import numpy as np
 import time
 start = time.time()
 
-# set attack id  (1-13) to delete from training set
-attack_id = 2
-
-
-
-# import data
-dataset_train = pd.read_csv('data/data_preprocessed_numerical_train_alt.csv', sep=',')
-dataset_test = pd.read_csv('data/data_preprocessed_numerical_test_alt.csv', sep=',')
+# import previouly processed data with all features;
+dataset_train = pd.read_csv('data/data_preprocessed_numerical_train_all_features.csv', sep=',')
+dataset_test = pd.read_csv('data/data_preprocessed_numerical_test_all_features.csv', sep=',')
 
 # delete all records from training set containing the attack in attack_id
-dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
+#dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
 
-#drop extra columns
-dataset_train = dataset_train.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
-dataset_test = dataset_test.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
+feature_selected =  pd.read_csv('data/selected_features.csv', sep=',', dtype = 'unicode')
+feature_selected = list(feature_selected['feature'])
+feature_selected.append('Class')
+
+dataset_train = dataset_train[feature_selected]
+dataset_test = dataset_test[feature_selected]
 
 X_train = dataset_train.iloc[:,0:-1].values
 y_train = dataset_train.iloc[:,-1].values
@@ -36,15 +34,15 @@ print("checkpoint 1:", end-start)
 
 #dump onehot encoded training data
 # save the fully processed data as binary for future use in any ML algorithm without any more preprocessing. 
-np.save('data/data_fully_processed_X_train_alt.npy',X_train)
-np.save('data/data_fully_processed_y_train_alt.npy',y_train)
+np.save('data/data_fully_processed_X_train_selected_features.npy',X_train)
+np.save('data/data_fully_processed_y_train_selected_features.npy',y_train)
 
 print("Before OverSampling, counts of label '1': {}".format(sum(y_train==1)))
 print("Before OverSampling, counts of label '0': {} \n".format(sum(y_train==0)))
 
 # save the fully processed data as binary for future use in any ML algorithm without any more preprocessing. 
-np.save('data/data_fully_processed_X_test_alt.npy',X_test)
-np.save('data/data_fully_processed_y_test_alt.npy',y_test)
+np.save('data/data_fully_processed_X_test_selected_features.npy',X_test)
+np.save('data/data_fully_processed_y_test_selected_features.npy',y_test)
 
 
 end = time.time()
@@ -58,8 +56,8 @@ sm = SMOTE(random_state=42)
 X_train_res, y_train_res = sm.fit_sample(X_train, y_train)
 
 # save the fully processed data as binary for future use in any ML algorithm without any more preprocessing. 
-np.save('data/data_fully_processed_X_train_resampled_alt.npy',X_train_res)
-np.save('data/data_fully_processed_y_train_resampled_alt.npy',y_train_res)
+np.save('data/data_fully_processed_X_train_resampled_selected_features.npy',X_train_res)
+np.save('data/data_fully_processed_y_train_resampled_selected_features.npy',y_train_res)
 
 print('After OverSampling, the shape of train_X: {}'.format(X_train_res.shape))
 print('After OverSampling, the shape of train_y: {} \n'.format(y_train_res.shape))
