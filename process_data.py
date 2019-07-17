@@ -10,26 +10,16 @@
 import time
 
 start = time.time()
-exec(open("data_extract.py").read())
+exec(open("data_preprocess_all_features.py").read())
 end = time.time()
-print("Time taken by data_extract.py:", end-start)
+print("Time taken by data_preprocess_all_features.py:", end-start)
 
 start = time.time()
-exec(open("data_transform.py").read())
+exec(open("data_preprocess_selected_features.py").read())
 end = time.time()
-print("Time taken by data_transform.py:", end-start)
+print("Time taken by data_preprocess_selected_features.py:", end-start)
 
 start = time.time()
-exec(open("data_load.py").read())
+exec(open("data_preprocess_domain_features.py").read())
 end = time.time()
-print("Time taken by data_load.py:", end-start)
-
-start = time.time()
-exec(open("data_conversion.py").read())
-end = time.time()
-print("Time taken by data_conversion.py:", end-start)
-
-start = time.time()
-exec(open("data_conversion_alt.py").read())
-end = time.time()
-print("Time taken by data_conversion_alt.py:", end-start)
+print("Time taken by data_preprocess_domain_features.py:", end-start)

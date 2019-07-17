@@ -12,9 +12,11 @@ config_file = 'config.txt'
 config = pd.read_csv(config_file,sep=',', index_col =None)
 resample_data = config.iloc[0,1] #0 or 1
 feature_set = config.iloc[1,1] # 1 = full features, 2 = selected, 3 = domain
+attack_id = config.iloc[2,1]
 
+del config
 
-print("Extra Trees:",resample_data)
+print("Extra Trees- Res: ",resample_data, ", featureset: ", feature_set, ", attack id: ", attack_id)
 start = time.time()
 
 from sklearn.ensemble import ExtraTreesClassifier

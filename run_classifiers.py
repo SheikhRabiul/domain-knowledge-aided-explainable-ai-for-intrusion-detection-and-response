@@ -1,18 +1,6 @@
 # Author: Sheikh Rabiul Islam
 # Date: 3/20/2019
 # Purpose: run following algorithms; classifiers.ga might not run on windows, it runs on linux machine
-#	classifier_lr.py -> Logistic Regression (LR)
-#	classifier_dt.py -> Decision Tree (DT)
-#	classifier_rf.py -> Random Forest (RF)
-#	classifier_et -> Extra Trees (ET)
-#	classifier_gradient_boosting.py - > Gradient Boosting (GB)
-#	classifier_adaboost.py -> Adaboost
-#	classifier_nb.py -> Naive Bayes
-#	clasifier_mda.py -> Multiple Discriminant Analysis (MDA)
-#	classifier_svm.py -> Support Vector Machine (SVM)
-#	classifier_rough_set.py -> Rough Set (RS)
-#	classifier_ann.py -> Artificial Neural Network (ANN)
-#	classifier_ga.py -> Genetic Algorithm (GA)
 
 import time
 s = time.time()

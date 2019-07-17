@@ -9,7 +9,7 @@ import numpy as np
 import time
 start = time.time()
 # import data
-dataset = pd.read_csv('data/combined_sampled.csv', sep=',')
+dataset = pd.read_csv('data/combined_sampled.csv', sep=',', dtype='unicode')
 #maximum finite value in any cell of the dataset. Infinity value in any cell is replaced with with this value. 
 max_value = 655453030.0
 # seperate the dependent (target) variaable

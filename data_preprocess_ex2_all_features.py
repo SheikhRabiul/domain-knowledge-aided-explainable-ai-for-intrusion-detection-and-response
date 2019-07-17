@@ -10,16 +10,16 @@ import time
 start = time.time()
 
 # set attack id  (1-13) to delete from training set
-attack_id = 12
-
-
+config_file = 'config.txt'
+config = pd.read_csv(config_file,sep=',', index_col =None)
+attack_id = config.iloc[2,1]
 
 # import data
 dataset_train = pd.read_csv('data/data_preprocessed_numerical_train_all_features.csv', sep=',')
 dataset_test = pd.read_csv('data/data_preprocessed_numerical_test_all_features.csv', sep=',')
 
 # delete all records from training set containing the attack in attack_id
-dataset_train = dataset_train[dataset_train['Class_all'] != 1]
+dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
 
 #drop extra columns
 dataset_train = dataset_train.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
