@@ -1,0 +1,14 @@
+checkpoint 1: 6.444729566574097
+Before OverSampling, counts of label '1': 6740
+Before OverSampling, counts of label '0': 28197 
+
+checkpoint 2: 7.2029314041137695
+After OverSampling, the shape of train_X: (56394, 79)
+After OverSampling, the shape of train_y: (56394,) 
+
+After OverSampling, counts of label '1': 28197
+After OverSampling, counts of label '0': 28197
+
+
+Time taken by data_preprocess_ex2_all_features.py: 12.490402936935425
+attack_id:  9

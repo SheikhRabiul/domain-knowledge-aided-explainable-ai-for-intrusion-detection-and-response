@@ -1,6 +1,6 @@
 # Author: Sheikh Rabiul Islam
-# Date: 07/13/2019; updated:  07/13/2019
-# Purpose: load preprocessed data, drop features which are not related to domain.
+# Date: 07/13/2019; updated:  07/15/2019
+# Purpose: load preprocessed data, delete records from a particular attack from the training set only. 
 #		save the fully processed data as numpy array (binary: data/____.npy)
 
 #import modules
@@ -9,40 +9,43 @@ import numpy as np
 import time
 start = time.time()
 
-# import previouly processed data with all features;
+# set attack id  (1-13) to delete from training set
+config_file = 'config.txt'
+config = pd.read_csv(config_file,sep=',', index_col =None)
+attack_id = config.iloc[2,1]
+print("attack_id: ", attack_id)
+
+# import data
 dataset_train = pd.read_csv('data/data_preprocessed_numerical_train_all_features.csv', sep=',')
 dataset_test = pd.read_csv('data/data_preprocessed_numerical_test_all_features.csv', sep=',')
 
 # delete all records from training set containing the attack in attack_id
-#dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
+dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
 
-#old  1
+#drop extra columns
+#old
 #feature_selected = ['ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Min','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Fwd Packets/s','Fwd PSH Flags','Flow Duration','Flow IAT Mean','Flow IAT Min','Flow IAT Std','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets', 'Class']
 
-#now, excluding 'Bwd Packet Length Min' (benign)     2
-feature_selected = ['ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Fwd Packets/s','Fwd PSH Flags','Flow Duration','Flow IAT Mean','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets', 'Class']
+#now, excluding 'Bwd Packet Length Min' (benign)
+#feature_selected = ['ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Fwd Packets/s','Fwd PSH Flags','Flow Duration','Flow IAT Mean','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets', 'Class']
 
-# overall top 3 added       3
+# overall top 3 added 
 #feature_selected = ['Flow Bytes/s','Avg Fwd Segment Size','Packet Length Mean','ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Min','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Fwd Packets/s','Fwd PSH Flags','Flow Duration','Flow IAT Mean','Flow IAT Min','Flow IAT Std','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets', 'Class']
 
-#discarding less important       4
+#discarding less important
 #feature_selected = ['Average Packet Size','Bwd IAT Mean','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Flow Duration','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets', 'Class']
+feature_selected = ['Bwd Packet Length Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Flow Duration','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','Subflow Fwd Bytes','Total Length of Fwd Packets', 'Class']
 
-#discarding less important but keeping Bwd Packet Length Min         6
-#feature_selected = ['Bwd Packet Length Min','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Flow Duration','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','Subflow Fwd Bytes','Total Length of Fwd Packets', 'Class']
-
-#discarding less important; adding overall top 3         5
+#discarding less important; adding overall top 3
 #feature_selected = ['Flow Bytes/s','Avg Fwd Segment Size','Packet Length Mean','Average Packet Size','Bwd IAT Mean','Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Flow Duration','Flow IAT Min','Flow IAT Std','Fwd IAT Min','Init_Win_bytes_forward','PSH Flag Count','Subflow Fwd Bytes','SYN Flag Count','Total Length of Fwd Packets', 'Class']
-
-
 
 
 dataset_train = dataset_train[feature_selected]
 dataset_test = dataset_test[feature_selected]
 
-#renaming features
-#features_new_names = ['index_old','ACK Flag Count - C','Active Mean - AC','Active Min - A','Avg Packet Size - A','Bwd IAT Mean - A','Bwd Packet Length Min','Bwd Packet Length Std - AC','Bwd Packets/s - CIA','Fwd IAT Mean - A','Fwd IAT Min - A','Fwd Packet Length Mean - CIA','Fwd Packets/s - C','Fwd PSH Flags - C','Flow Duration - AC','Flow IAT Mean - A','Flow IAT Min - A','Flow IAT Std - A','Fwd IAT Min - A','Init Win Bytes Fwd - CIA','PSH Flag Count - C','Subflow Fwd Bytes - CIA','SYN Flag Count - C','Total Length of Fwd Packets - CIA', 'class_all','Class']
-#dataset.columns = features_new_names
+
+#dataset_train = dataset_train.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
+#dataset_test = dataset_test.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
 
 X_train = dataset_train.iloc[:,0:-1].values
 y_train = dataset_train.iloc[:,-1].values

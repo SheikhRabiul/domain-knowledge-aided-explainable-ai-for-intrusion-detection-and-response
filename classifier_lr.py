@@ -1,5 +1,5 @@
 # Author: Sheikh Rabiul Islam
-# Date: 03/14/2019
+# Date: 07/18/2019
 # Purpose: Random Forest on fully processed data
 
 #import modules
@@ -11,7 +11,10 @@ import time
 config_file = 'config.txt'
 config = pd.read_csv(config_file,sep=',', index_col =None)
 resample_data = config.iloc[0,1] #0 or 1
-full_feature_set = config.iloc[1,1] #0 or 1
+feature_set = config.iloc[1,1] # 1 = full features, 2 = selected, 3 = domain
+attack_id = config.iloc[2,1]
+del config
+
 print("LR:",resample_data)
 start = time.time()
 
@@ -33,11 +36,22 @@ if resample_data == 1:
     f_X_train = f_X_train + "_resampled"
     f_y_train = f_y_train + "_resampled"
 
-if full_feature_set == 1:
-    f_X_train = f_X_train + "_alt"
-    f_y_train = f_y_train + "_alt"
-    f_X_test = f_X_test + "_alt"
-    f_y_test = f_y_test + "_alt"
+if feature_set == 1:
+    f_X_train = f_X_train + "_all_features"
+    f_y_train = f_y_train + "_all_features"
+    f_X_test = f_X_test + "_all_features"
+    f_y_test = f_y_test + "_all_features"
+elif feature_set == 2:
+    f_X_train = f_X_train + "_selected_features"
+    f_y_train = f_y_train + "_selected_features"
+    f_X_test = f_X_test + "_selected_features"
+    f_y_test = f_y_test + "_selected_features"
+else:
+    f_X_train = f_X_train + "_domain_features"
+    f_y_train = f_y_train + "_domain_features"
+    f_X_test = f_X_test + "_domain_features"
+    f_y_test = f_y_test + "_domain_features"  
+
     
 
 f_X_train = f_X_train + ".npy"

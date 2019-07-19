@@ -19,7 +19,7 @@ import pandas as pd
 s = time.time()
 
 import sys
-sys.stdout = open('print_exp2_res.txt', 'w')  #comment this line in case you want to see output on the console.
+sys.stdout = open('print_exp2_res_new_corr_sel.txt', 'w')  #comment this line in case you want to see output on the console.
 
 config_file = 'config.txt'
 
@@ -34,10 +34,10 @@ for i in range(1,15):
     end = time.time()
     print("\n\nTime taken by data_preprocess_ex2_selected_features.py:", end-start)
     
-    start = time.time()
-    exec(open("data_preprocess_ex2_domain_features.py").read())
-    end = time.time()
-    print("\n\nTime taken by data_preprocess_ex2_domain_features.py:", end-start)
+    #start = time.time()
+    #exec(open("data_preprocess_ex2_domain_features-test2.py").read())
+    #end = time.time()
+    #print("\n\nTime taken by data_preprocess_ex2_domain_features-test.py:", end-start)
     
 
     config = pd.read_csv(config_file,sep=',', index_col =None)
@@ -48,9 +48,9 @@ for i in range(1,15):
     time.sleep(2)
 
     start = time.time()
-    exec(open("classifier_et.py").read())
+    exec(open("classifier_ann.py").read())
     end = time.time()
-    print("\n\nTime taken by classifier_et.py:", end-start)
+    print("\n\nTime taken by classifier_ann.py:", end-start)
     
     start = time.time()
     exec(open("analysis_excludeing_1_attack.py").read())
@@ -65,9 +65,9 @@ for i in range(1,15):
     time.sleep(2)
     
     start = time.time()
-    exec(open("classifier_et.py").read())
+    exec(open("classifier_ann.py").read())
     end = time.time()
-    print("\n\nTime taken by classifier_et.py:", end-start)
+    print("\n\nTime taken by classifier_ann.py:", end-start)
     
     start = time.time()
     exec(open("analysis_excludeing_1_attack.py").read())
@@ -75,21 +75,21 @@ for i in range(1,15):
     print("\n\nTime taken by[selected] analysis_excludeing_1_attack.py.py:", end-start)
     
     
-    config = pd.read_csv(config_file,sep=',', index_col =None)
-    config.iloc[1,1] = 3
-    config.to_csv(config_file,encoding='utf-8',index=False)
-    del config
-    time.sleep(2)
+    #config = pd.read_csv(config_file,sep=',', index_col =None)
+    #config.iloc[1,1] = 3
+    #config.to_csv(config_file,encoding='utf-8',index=False)
+    #del config
+    #time.sleep(2)
     
-    start = time.time()
-    exec(open("classifier_et.py").read())
-    end = time.time()
-    print("\n\nTime taken by classifier_et.py:", end-start)
+    #start = time.time()
+    #exec(open("classifier_ann.py").read())
+    #end = time.time()
+    #print("\n\nTime taken by classifier_ann.py:", end-start)
     
-    start = time.time()
-    exec(open("analysis_excludeing_1_attack.py").read())
-    end = time.time()
-    print("\n\nTime taken by [domain] analysis_excludeing_1_attack.py.py:", end-start)
+    #start = time.time()
+    #exec(open("analysis_excludeing_1_attack.py").read())
+    #end = time.time()
+    #print("\n\nTime taken by [domain] analysis_excludeing_1_attack.py.py:", end-start)
 
 #
 

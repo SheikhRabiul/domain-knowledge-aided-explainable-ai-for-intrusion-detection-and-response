@@ -1,6 +1,6 @@
 # Author: Sheikh Rabiul Islam
-# Date: 07/13/2019; updated:  07/15/2019
-# Purpose: load preprocessed data, delete records from a particular attack from the training set only. 
+# Date: 07/13/2019; updated:  07/13/2019
+# Purpose: load preprocessed data, drop features which are not related to domain.
 #		save the fully processed data as numpy array (binary: data/____.npy)
 
 #import modules
@@ -9,20 +9,13 @@ import numpy as np
 import time
 start = time.time()
 
-# set attack id  (1-13) to delete from training set
-config_file = 'config.txt'
-config = pd.read_csv(config_file,sep=',', index_col =None)
-attack_id = config.iloc[2,1]
-print("attack_id: ", attack_id)
-
-# import data
+# import previouly processed data with all features;
 dataset_train = pd.read_csv('data/data_preprocessed_numerical_train_all_features.csv', sep=',')
 dataset_test = pd.read_csv('data/data_preprocessed_numerical_test_all_features.csv', sep=',')
 
 # delete all records from training set containing the attack in attack_id
-dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
+#dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
 
-#drop extra columns
 feature_selected = ['ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean',
                     'Bwd Packet Length Std','Bwd Packets/s','Fwd IAT Mean','Fwd IAT Min','Fwd Packet Length Mean','Fwd Packets/s',
                     'Fwd PSH Flags','Flow Duration','Flow IAT Mean','Flow IAT Min','Flow IAT Std','Init_Win_bytes_forward',
@@ -181,9 +174,10 @@ dataset_test['A'] = dataset_test['A'] - dataset_test['Total Length of Fwd Packet
 feature_selected = ['C','I','A','Class']
 dataset_train = dataset_train[feature_selected]
 dataset_test = dataset_test[feature_selected]
-
+#
 #dataset_train = dataset_train.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
 #dataset_test = dataset_test.drop(['Unnamed: 0', 'index', 'index_old', 'Class_all'], axis=1)
+
 
 X_train = dataset_train.iloc[:,0:-1].values
 y_train = dataset_train.iloc[:,-1].values

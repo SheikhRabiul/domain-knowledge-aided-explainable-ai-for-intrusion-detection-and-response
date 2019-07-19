@@ -1398,3 +1398,39 @@ Percentage:  0
 
 
 Time taken by [domain] analysis_excludeing_1_attack.py.py: 14.77955961227417
+checkpoint 1: 7.7955381870269775
+checkpoint 2: 109.39525985717773
+Before OverSampling, counts of label '1': 6803
+Before OverSampling, counts of label '0': 28197 
+
+checkpoint 3: 1.632577657699585
+After OverSampling, the shape of train_X: (56394, 79)
+After OverSampling, the shape of train_y: (56394,) 
+
+After OverSampling, counts of label '1': 28197
+After OverSampling, counts of label '0': 28197
+checkpoint 1: 5.255730152130127
+checkpoint 1: 7.032952070236206
+checkpoint 1: 7.866498947143555
+checkpoint 1: 7.44776177406311
+checkpoint 1: 6.012151718139648
+Before OverSampling, counts of label '1': 6803
+Before OverSampling, counts of label '0': 28197 
+
+checkpoint 2: 6.945610523223877
+After OverSampling, the shape of train_X: (56394, 24)
+After OverSampling, the shape of train_y: (56394,) 
+
+After OverSampling, counts of label '1': 28197
+After OverSampling, counts of label '0': 28197
+Extra Trees- Res:  1 , featureset:  1 , attack id:  14
+data/data_fully_processed_X_train_resampled_all_features.npy
+data/data_fully_processed_y_train_resampled_all_features.npy
+data/data_fully_processed_X_test_all_features.npy
+data/data_fully_processed_y_test_all_features.npy
+   True Positives  True Negatives  False Positives  False Negatives
+0            2905           12072               12               11
+   accuracy  precision    recall    fscore   ROC-AUC
+0  0.998467   0.995886  0.996228  0.996057  0.999975
+0.9984666666666666 , 0.9958861844360645 , 0.9962277091906722 , 0.9960569175381451 , 0.9999752958145293 , 2905 , 12072 , 12 , 11 , 10.63779067993164
+Time taken: 10.63779067993164
