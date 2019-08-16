@@ -3,6 +3,9 @@ database
 dataset
 data
 docs
+old
+extra
+tmp
 
 # Ignore all .. files
 *.csv

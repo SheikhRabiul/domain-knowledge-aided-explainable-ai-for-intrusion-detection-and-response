@@ -15,6 +15,8 @@ feature_set = config.iloc[1,1] # 1 = full features, 2 = selected, 3 = domain
 attack_id = config.iloc[2,1]
 del config
 
+print("GB:",resample_data)
+
 start = time.time()
 
 from sklearn.ensemble import GradientBoostingClassifier

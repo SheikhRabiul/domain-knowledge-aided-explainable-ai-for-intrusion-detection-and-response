@@ -8,8 +8,12 @@ Purpose: sampling data.
 #modules
 import pandas as pd
 
+from sklearn.utils import shuffle
 #read the combined data files
 df = pd.read_csv("dataset/MachineLearningCSV/combined.csv", sep =",", dtype='unicode')
+
+
+df = shuffle(df)
 
 ########################## sampling data [stratified] ######################################
 X = df.iloc[:,:-1].values

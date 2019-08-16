@@ -1,4 +1,4 @@
 config_name, value
 use_resample,1
 feature_set,3
-attack_id,14
+attack_id,8

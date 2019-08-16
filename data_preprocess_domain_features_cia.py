@@ -9,18 +9,9 @@ import numpy as np
 import time
 start = time.time()
 
-# set attack id  (1-13) to delete from training set
-config_file = 'config.txt'
-config = pd.read_csv(config_file,sep=',', index_col =None)
-attack_id = config.iloc[2,1]
-print("attack_id: ", attack_id)
-
 # import data
 dataset_train = pd.read_csv('data/data_preprocessed_numerical_train_all_features.csv', sep=',')
 dataset_test = pd.read_csv('data/data_preprocessed_numerical_test_all_features.csv', sep=',')
-
-# delete all records from training set containing the attack in attack_id
-dataset_train = dataset_train[dataset_train['Class_all'] != attack_id]
 
 #drop extra columns
 feature_selected = ['ACK Flag Count','Active Mean','Active Min','Average Packet Size','Bwd IAT Mean',
@@ -66,17 +57,17 @@ dataset_train['A'] = dataset_train['A'] + dataset_train['Bwd Packets/s']*.333
 
 dataset_train['A'] = dataset_train['A'] + dataset_train['Fwd IAT Mean']
 
-dataset_train['A'] = dataset_train['A'] + dataset_train['Fwd IAT Min']
+dataset_train['A'] = dataset_train['A'] - dataset_train['Fwd IAT Min']  #negatively correlated
 
-dataset_train['C'] = dataset_train['C'] + dataset_train['Fwd Packet Length Mean']*.333
-dataset_train['I'] = dataset_train['I'] + dataset_train['Fwd Packet Length Mean']*.333
-dataset_train['A'] = dataset_train['A'] + dataset_train['Fwd Packet Length Mean']*.333
-
-dataset_train['C'] = dataset_train['C'] + dataset_train['Fwd Packets/s']
+dataset_train['C'] = dataset_train['C'] - dataset_train['Fwd Packet Length Mean']*.333 #negatively correlated
+dataset_train['I'] = dataset_train['I'] - dataset_train['Fwd Packet Length Mean']*.333
+dataset_train['A'] = dataset_train['A'] - dataset_train['Fwd Packet Length Mean']*.333
 
 dataset_train['C'] = dataset_train['C'] + dataset_train['Fwd Packets/s']
 
-dataset_train['C'] = dataset_train['C'] + dataset_train['Fwd PSH Flags']
+dataset_train['C'] = dataset_train['C'] + dataset_train['Fwd Packets/s']
+
+dataset_train['C'] = dataset_train['C'] - dataset_train['Fwd PSH Flags']   #negatively correlated
 
 dataset_train['A'] = dataset_train['A'] + dataset_train['Flow Duration']*.5
 dataset_train['C'] = dataset_train['C'] + dataset_train['Flow Duration']*.5
@@ -93,15 +84,15 @@ dataset_train['A'] = dataset_train['A'] + dataset_train['Init_Win_bytes_forward'
 
 dataset_train['C'] = dataset_train['C'] + dataset_train['PSH Flag Count']
 
-dataset_train['C'] = dataset_train['C'] + dataset_train['Subflow Fwd Bytes']*.333
-dataset_train['I'] = dataset_train['I'] + dataset_train['Subflow Fwd Bytes']*.333
-dataset_train['A'] = dataset_train['A'] + dataset_train['Subflow Fwd Bytes']*.333
+dataset_train['C'] = dataset_train['C'] - dataset_train['Subflow Fwd Bytes']*.333    #negatively correlated
+dataset_train['I'] = dataset_train['I'] - dataset_train['Subflow Fwd Bytes']*.333    
+dataset_train['A'] = dataset_train['A'] - dataset_train['Subflow Fwd Bytes']*.333
 
-dataset_train['C'] = dataset_train['C'] + dataset_train['SYN Flag Count']
+dataset_train['C'] = dataset_train['C'] - dataset_train['SYN Flag Count']     #negatively correlated
 
-dataset_train['C'] = dataset_train['C'] + dataset_train['Total Length of Fwd Packets']*.333
-dataset_train['I'] = dataset_train['I'] + dataset_train['Total Length of Fwd Packets']*.333
-dataset_train['A'] = dataset_train['A'] + dataset_train['Total Length of Fwd Packets']*.333
+dataset_train['C'] = dataset_train['C'] - dataset_train['Total Length of Fwd Packets']*.333  #negatively correlated
+dataset_train['I'] = dataset_train['I'] - dataset_train['Total Length of Fwd Packets']*.333
+dataset_train['A'] = dataset_train['A'] - dataset_train['Total Length of Fwd Packets']*.333
 
 
 
@@ -140,17 +131,17 @@ dataset_test['A'] = dataset_test['A'] + dataset_test['Bwd Packets/s']*.333
 
 dataset_test['A'] = dataset_test['A'] + dataset_test['Fwd IAT Mean']
 
-dataset_test['A'] = dataset_test['A'] + dataset_test['Fwd IAT Min']
+dataset_test['A'] = dataset_test['A'] - dataset_test['Fwd IAT Min']  #negatively correlated
 
-dataset_test['C'] = dataset_test['C'] + dataset_test['Fwd Packet Length Mean']*.333
-dataset_test['I'] = dataset_test['I'] + dataset_test['Fwd Packet Length Mean']*.333
-dataset_test['A'] = dataset_test['A'] + dataset_test['Fwd Packet Length Mean']*.333
-
-dataset_test['C'] = dataset_test['C'] + dataset_test['Fwd Packets/s']
+dataset_test['C'] = dataset_test['C'] - dataset_test['Fwd Packet Length Mean']*.333 #negatively correlated
+dataset_test['I'] = dataset_test['I'] - dataset_test['Fwd Packet Length Mean']*.333
+dataset_test['A'] = dataset_test['A'] - dataset_test['Fwd Packet Length Mean']*.333
 
 dataset_test['C'] = dataset_test['C'] + dataset_test['Fwd Packets/s']
 
-dataset_test['C'] = dataset_test['C'] + dataset_test['Fwd PSH Flags']
+dataset_test['C'] = dataset_test['C'] + dataset_test['Fwd Packets/s']
+
+dataset_test['C'] = dataset_test['C'] - dataset_test['Fwd PSH Flags']   #negatively correlated
 
 dataset_test['A'] = dataset_test['A'] + dataset_test['Flow Duration']*.5
 dataset_test['C'] = dataset_test['C'] + dataset_test['Flow Duration']*.5
@@ -167,15 +158,15 @@ dataset_test['A'] = dataset_test['A'] + dataset_test['Init_Win_bytes_forward']*.
 
 dataset_test['C'] = dataset_test['C'] + dataset_test['PSH Flag Count']
 
-dataset_test['C'] = dataset_test['C'] + dataset_test['Subflow Fwd Bytes']*.333
-dataset_test['I'] = dataset_test['I'] + dataset_test['Subflow Fwd Bytes']*.333
-dataset_test['A'] = dataset_test['A'] + dataset_test['Subflow Fwd Bytes']*.333
+dataset_test['C'] = dataset_test['C'] - dataset_test['Subflow Fwd Bytes']*.333    #negatively correlated
+dataset_test['I'] = dataset_test['I'] - dataset_test['Subflow Fwd Bytes']*.333    
+dataset_test['A'] = dataset_test['A'] - dataset_test['Subflow Fwd Bytes']*.333
 
-dataset_test['C'] = dataset_test['C'] + dataset_test['SYN Flag Count']
+dataset_test['C'] = dataset_test['C'] - dataset_test['SYN Flag Count']     #negatively correlated
 
-dataset_test['C'] = dataset_test['C'] + dataset_test['Total Length of Fwd Packets']*.333
-dataset_test['I'] = dataset_test['I'] + dataset_test['Total Length of Fwd Packets']*.333
-dataset_test['A'] = dataset_test['A'] + dataset_test['Total Length of Fwd Packets']*.333
+dataset_test['C'] = dataset_test['C'] - dataset_test['Total Length of Fwd Packets']*.333  #negatively correlated
+dataset_test['I'] = dataset_test['I'] - dataset_test['Total Length of Fwd Packets']*.333
+dataset_test['A'] = dataset_test['A'] - dataset_test['Total Length of Fwd Packets']*.333
 
 
 feature_selected = ['C','I','A','Class']

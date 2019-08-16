@@ -7,23 +7,29 @@
 import pandas as pd   
 import numpy as np
 import time
+
+from sklearn.utils import shuffle
 start = time.time()
 # import data
 dataset = pd.read_csv('data/combined_sampled.csv', sep=',', dtype='unicode')
+
+dataset = shuffle(dataset)
+
+dataset = dataset.iloc[:, 1:] # drop the first Unnamed 0 column
 #maximum finite value in any cell of the dataset. Infinity value in any cell is replaced with with this value. 
 max_value = 655453030.0
 # seperate the dependent (target) variaable
 X = dataset.iloc[:,0:-1].values
 X_columns = dataset.iloc[:,0:-1].columns.values
 y = dataset.iloc[:,-1].values
-del(dataset)
+#del(dataset)
 #X_bk = pd.DataFrame(data=X, columns =X_columns ) 
 
 from sklearn.preprocessing import LabelEncoder
 df_dump_part1 = pd.DataFrame(X, columns=X_columns)
 df_dump_part2 = pd.DataFrame(y, columns=['Class'])   
 df_dump = pd.concat([df_dump_part1,df_dump_part2], axis = 1)     
-df_dump.to_csv("data/data_preprocessed_numerical.csv",encoding='utf-8')   # keeping a backup of preprocessed numerical data.
+df_dump.to_csv("data/data_preprocessed_numerical.csv",encoding='utf-8', index = False)   # keeping a backup of preprocessed numerical data.
 end = time.time()
 print("checkpoint 1:", end-start)
 
@@ -48,7 +54,8 @@ for i in range(X.shape[0]):
 # Feature Scaling (scaling all attributes/featues in the same scale)
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
-X_ = sc.fit_transform(X[:, 1:-1]) # except first and last column as first is old index and last is class all
+
+X_ = sc.fit_transform(X[:, 1:-1]) # except first and last column as first is  index and last is class all
 X = np.hstack((X[:,[0,-1]],X_)) #append old index and class all in the beginning
 
 del X_
@@ -59,11 +66,11 @@ X = np.hstack((index,X))
 
 #########seperating training and test set  ##################
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.3, random_state=42, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.3, random_state=42,stratify=y)
 
 
 col_l = ['index','index_old', 'Class_all']
-for i in range(1,len(X_columns)-1):
+for i in range(1,len(X_columns)-1):  #excluding index_old from X_columns ans it is already included
     col_l.append(X_columns[i])
 
 

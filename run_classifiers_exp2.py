@@ -8,7 +8,7 @@ import pandas as pd
 s = time.time()
 
 import sys
-sys.stdout = open('tmp/exp2.txt', 'w')  #comment this line in case you want to see output on the console.
+sys.stdout = open('tmp/exp2_300000_rf_res_new_new.txt', 'w')  #comment this line in case you want to see output on the console.
 
 config_file = 'config.txt'
 
@@ -37,7 +37,7 @@ for i in range(1,15):
     time.sleep(2)
 
     start = time.time()
-    exec(open("classifier_nb.py").read())
+    exec(open("classifier_rf.py").read())
     end = time.time()
     print("\n\nTime taken by  classifier", end-start)
     
@@ -54,7 +54,7 @@ for i in range(1,15):
     time.sleep(2)
     
     start = time.time()
-    exec(open("classifier_nb.py").read())
+    exec(open("classifier_rf.py").read())
     end = time.time()
     print("\n\nTime taken by classifier", end-start)
     
@@ -71,7 +71,7 @@ for i in range(1,15):
     time.sleep(2)
     
     start = time.time()
-    exec(open("classifier_nb.py").read())
+    exec(open("classifier_rf.py").read())
     end = time.time()
     print("\n\nTime taken by classifier ", end-start)
     

@@ -5,11 +5,10 @@ process_data.py - > preprocess data for experiment 1.
     data_sampler.py -> sample specified number of records using stratified sampling technique. 
     data_preprocess_all_features.py -> preprocess data using all features, saves fully preprocessed data in binary format (as numpy array with format .npy)
     data_preprocess_selected_features.py -> preprocess data using selected features, saves fully preprocessed data in binary format (as numpy array with format .npy)
+		#the selected features are read from data/selected_features.csv file, the feature selection algorithm (e.g., RF in feature_selection.py)  write the selected features in this file. 
     data_preprocess_domain_features.py -> preprocess data using domain features, saves fully preprocessed data in binary format (as numpy array with format .npy)
-	#for the experiment 2 that exclude one attack at a time from training set, use following preprocessing script, saves fully preprocessed data in binary format (as numpy array with format .npy)
-	data_preprocessing_ex2_all_features.py -> excludes one attack at a time from training set with all features and test it against the original test set.
-	data_preprocessing_ex2_selected_features.py -> excludes one attack at a time from training set with selected features and test it against the original test set.
-	data_preprocessing_ex2_domain_features.py -> excludes one attack at a time from training set with domain features and test it against the original test set.
+	data_preprocess_domain_features_cia.py -> preprocess data using constructed features (C,I, and A) from domain features, saves fully preprocessed data in binary format (as numpy array with format .npy)
+	
 	
 ######### classifier run ###############################	
 run_classifiers.py -> run all classifiers one by one
@@ -27,12 +26,12 @@ run_classifiers.py -> run all classifiers one by one
 
 #Experiment 2
 ########## data preprocessing ############################
-process_data_exp2.py -> preprocess data fro experiment 2. 
-    data_preprocessing_ex2_all_features.py -> excludes one attack at a time from training set with all features and test it against the original test set.
+#for the experiment 2 that exclude one attack at a time from training set, use following preprocessing scripts, saves fully preprocessed data in binary format (as numpy array with format .npy)
+	data_preprocessing_ex2_all_features.py -> excludes one attack at a time from training set with all features and test it against the original test set.
 	data_preprocessing_ex2_selected_features.py -> excludes one attack at a time from training set with selected features and test it against the original test set.
-	data_preprocessing_ex2_domain_features.py -> excludes one attack at a time from training set with domain features and test it against the original test set.
-	#before running above three preprocessing script (or the combined one process_data_exp2.py), make necessary changes in config.txt file.
-config.txt -> set use_resample = 1 to use resampled data, use feature_set =1 to use all features, 2 for selected features, and 3 for domain features.
+	data_preprocessing_ex2_domain_features-alt.py -> excludes one attack at a time from training set with domain features and test it against the original test set.
+	data_preprocessing_ex2_domain_features.py -> excludes one attack at a time from training set with constructed features from domain features and test it against the original test set.
+	config.txt -> set use_resample = 1 to use resampled data, use feature_set =1 to use all features, 2 for selected features, and 3 for domain features.
 
 ######### classifier run ###############################	
 #run classifier as before by making necessary changes in  config.txt -> set use_resample = 1 to use resampled data, use feature_set =1 to use all features, 2 for selected features, and 3 for domain features.

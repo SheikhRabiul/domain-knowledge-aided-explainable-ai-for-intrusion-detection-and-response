@@ -1,0 +1,51 @@
+,feature
+0,Average Packet Size
+1,Bwd Packet Length Std
+2,Bwd Header Length
+3,Destination Port
+4,Max Packet Length
+5,min_seg_size_forward
+6,Flow IAT Mean
+7,Init_Win_bytes_forward
+8,Fwd IAT Min
+9,Active Std
+10,Fwd Packet Length Std
+11,Init_Win_bytes_backward
+12,Flow IAT Std
+13,Bwd IAT Std
+14,Packet Length Mean
+15,Flow IAT Min
+16,Total Fwd Packets
+17,Fwd IAT Mean
+18,Bwd IAT Min
+19,Subflow Fwd Bytes
+20,Fwd IAT Total
+21,Total Length of Fwd Packets
+22,Down/Up Ratio
+23,Fwd IAT Max
+24,Fwd Header Length.1
+25,Subflow Fwd Packets
+26,Flow IAT Max
+27,Fwd Packet Length Min
+28,Avg Bwd Segment Size
+29,Fwd Packet Length Max
+30,Bwd Packet Length Min
+31,Min Packet Length
+32,Fwd Packets/s
+33,Fwd Header Length
+34,Flow Duration
+35,Bwd IAT Mean
+36,URG Flag Count
+37,Packet Length Std
+38,Flow Packets/s
+39,Flow Bytes/s
+40,Bwd Packet Length Mean
+41,act_data_pkt_fwd
+42,Total Length of Bwd Packets
+43,Subflow Bwd Bytes
+44,Fwd Packet Length Mean
+45,Fwd IAT Std
+46,Bwd Packets/s
+47,Bwd Packet Length Max
+48,Bwd IAT Max
+49,Avg Fwd Segment Size

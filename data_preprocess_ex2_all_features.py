@@ -9,7 +9,7 @@ import numpy as np
 import time
 start = time.time()
 
-# set attack id  (1-13) to delete from training set
+# set attack id  (1-14) to delete from training set
 config_file = 'config.txt'
 config = pd.read_csv(config_file,sep=',', index_col =None)
 attack_id = config.iloc[2,1]

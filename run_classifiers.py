@@ -5,7 +5,7 @@ import time
 s = time.time()
 
 import sys
-sys.stdout = open('tmp/exp1.txt', 'w')  #comment this line in case you want to see output on the console.
+sys.stdout = open('tmp/exp1_300000_new.txt', 'w')  #comment this line in case you want to see output on the console.
 
 import pandas as pd
 config_file = 'config.txt'
@@ -18,10 +18,10 @@ del config
 time.sleep(2)
 
 
-start = time.time()
-exec(open("classifier_lr.py").read())
-end = time.time()
-print("\n\nTime taken by classifier_lr.py:", end-start)
+#start = time.time()
+#exec(open("classifier_lr.py").read())
+#end = time.time()
+#print("\n\nTime taken by classifier_lr.py:", end-start)
 
 start = time.time()
 exec(open("classifier_dt.py").read())
@@ -53,10 +53,10 @@ exec(open("classifier_nb.py").read())
 end = time.time()
 print("\n\nTime taken by classifier_nb.py:", end-start)
 
-start = time.time()
-exec(open("classifier_mda_qda.py").read())
-end = time.time()
-print("\n\nTime taken by classifier_mda_qda.py:", end-start)
+#start = time.time()
+#exec(open("classifier_mda_qda.py").read())
+#end = time.time()
+#print("\n\nTime taken by classifier_mda_qda.py:", end-start)
 
 start = time.time()
 exec(open("classifier_svm_linear.py").read())
@@ -77,10 +77,10 @@ config.to_csv(config_file,encoding='utf-8',index=False)
 del config
 time.sleep(2)
 
-start = time.time()
-exec(open("classifier_lr.py").read())
-end = time.time()
-print("\n\nTime taken by classifier_lr.py:", end-start)
+#start = time.time()
+#exec(open("classifier_lr.py").read())
+#end = time.time()
+#print("\n\nTime taken by classifier_lr.py:", end-start)
 
 start = time.time()
 exec(open("classifier_dt.py").read())
@@ -112,10 +112,10 @@ exec(open("classifier_nb.py").read())
 end = time.time()
 print("\n\nTime taken by classifier_nb.py:", end-start)
 
-start = time.time()
-exec(open("classifier_mda_qda.py").read())
-end = time.time()
-print("\n\nTime taken by classifier_mda_qda.py:", end-start)
+#start = time.time()
+#exec(open("classifier_mda_qda.py").read())
+#end = time.time()
+#print("\n\nTime taken by classifier_mda_qda.py:", end-start)
 
 start = time.time()
 exec(open("classifier_svm_linear.py").read())
@@ -135,10 +135,10 @@ config.to_csv(config_file,encoding='utf-8',index=False)
 del config
 time.sleep(2)
 
-start = time.time()
-exec(open("classifier_lr.py").read())
-end = time.time()
-print("\n\nTime taken by classifier_lr.py:", end-start)
+#start = time.time()
+#exec(open("classifier_lr.py").read())
+#end = time.time()
+#print("\n\nTime taken by classifier_lr.py:", end-start)
 
 start = time.time()
 exec(open("classifier_dt.py").read())
@@ -170,10 +170,10 @@ exec(open("classifier_nb.py").read())
 end = time.time()
 print("\n\nTime taken by classifier_nb.py:", end-start)
 
-start = time.time()
-exec(open("classifier_mda_qda.py").read())
-end = time.time()
-print("\n\nTime taken by classifier_mda_qda.py:", end-start)
+#start = time.time()
+#exec(open("classifier_mda_qda.py").read())
+#end = time.time()
+#print("\n\nTime taken by classifier_mda_qda.py:", end-start)
 
 start = time.time()
 exec(open("classifier_svm_linear.py").read())
